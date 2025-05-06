@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <title>GeoVision 3D: Конус</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background-color: #f9f9f9; }
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        canvas { width: 100%; height: 400px; display: block; margin: 0 auto; }
+        input { padding: 8px; margin: 10px; width: 100px; }
+        .output { margin-top: 20px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GeoVision 3D — Конус модулі</h1>
+        <p>Радиус (см): <input type="number" id="radius" value="5"></p>
+        <p>Биіктік (см): <input type="number" id="height" value="10"></p>
+        <button onclick="updateCone()">Көлемді есептеу</button>
+        <div class="output" id="volumeOutput">Көлемі: </div>
+        <div id="threejs-canvas"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        let scene = new THREE.Scene();
+        let camera = new THREE.PerspectiveCamera(75, 800/400, 0.1, 1000);
+        let renderer = new THREE.WebGLRenderer();
+        renderer.setSize(800, 400);
+        document.getElementById("threejs-canvas").appendChild(renderer.domElement);
+
+        let geometry, material, cone;
+        material = new THREE.MeshNormalMaterial();
+        geometry = new THREE.ConeGeometry(5, 10, 32);
+        cone = new THREE.Mesh(geometry, material);
+        scene.add(cone);
+
+        camera.position.z = 20;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            cone.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        function updateCone() {
+            let r = parseFloat(document.getElementById('radius').value);
+            let h = parseFloat(document.getElementById('height').value);
+            let volume = (1/3) * Math.PI * r * r * h;
+            document.getElementById('volumeOutput').innerText = 'Көлемі: ' + volume.toFixed(2) + ' см³';
+
+            scene.remove(cone);
+            geometry = new THREE.ConeGeometry(r, h, 32);
+            cone = new THREE.Mesh(geometry, material);
+            scene.add(cone);
+        }
+    </script>
+</body>
+</html>
