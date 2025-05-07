@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoVision 3D VR/AR</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-ar.js@1.4.2/dist/aframe-ar.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>GeoVision 3D VR/AR</h1>
+        <p>Геометрияны AR және VR режимінде оқыңыз!</p>
+    </header>
+
+    <section class="controls">
+        <button id="vrButton">VR Режимінде көріңіз</button>
+        <button id="arButton">AR Режимінде көріңіз</button>
+    </section>
+
+    <script>
+        document.getElementById('vrButton').addEventListener('click', function() {
+            window.location.href = "vr.html";
+        });
+        document.getElementById('arButton').addEventListener('click', function() {
+            window.location.href = "ar.html";
+        });
+    </script>
+</body>
+</html>
